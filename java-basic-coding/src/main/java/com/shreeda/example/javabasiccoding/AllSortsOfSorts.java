@@ -1,8 +1,5 @@
 package com.shreeda.example.javabasiccoding;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -58,6 +55,9 @@ public class AllSortsOfSorts {
                     minimumIndex = j;
                 }
             }
+            if (minimumIndex == i) {
+                continue;
+            }
             // Swap the found minimum element with the first
             // element
             int temp = unsortedSeries.get(minimumIndex);
@@ -70,17 +70,16 @@ public class AllSortsOfSorts {
         int length = unsortedSeries.size();
 
         // One by one, move boundary of unsorted subarray
-        for (int i = 0; i < length-1; i++) {
+        for (int i = 0; i < length - 1; i++) {
             // Find the minimum element in unsorted array
-            int key = unsortedSeries.get(i+1);
+            int key = unsortedSeries.get(i + 1);
             int j = i;
 
-            while (j >= 0 && unsortedSeries.get(j) > key)
-            {
-                unsortedSeries.set(j+1, unsortedSeries.get(j));
-                j = j-1;
+            while (j >= 0 && unsortedSeries.get(j) > key) {
+                unsortedSeries.set(j + 1, unsortedSeries.get(j));
+                j = j - 1;
             }
-            unsortedSeries.set(j+1, key);
+            unsortedSeries.set(j + 1, key);
         }
     }
 
@@ -100,8 +99,8 @@ public class AllSortsOfSorts {
             return unsortedSeries;
         }
 
-        ArrayList<Integer> left = mergeSort(new ArrayList<Integer>(unsortedSeries.subList(0, length/2)));
-        ArrayList<Integer> right = mergeSort(new ArrayList<>(unsortedSeries.subList(length/2, length)));
+        ArrayList<Integer> left = mergeSort(new ArrayList<Integer>(unsortedSeries.subList(0, length / 2)));
+        ArrayList<Integer> right = mergeSort(new ArrayList<>(unsortedSeries.subList(length / 2, length)));
         ArrayList<Integer> mergedSorted = merge(left, right);
 
         return mergedSorted;
@@ -110,18 +109,18 @@ public class AllSortsOfSorts {
 
     private static ArrayList<Integer> merge(ArrayList<Integer> left, ArrayList<Integer> right) {
         ArrayList<Integer> sortedSeries = new ArrayList<Integer>();
-        int leftIndex=0, rightIndex=0;
-        boolean checkRightOnly=false, checkLeftOnly=false;
+        int leftIndex = 0, rightIndex = 0;
+        boolean checkRightOnly = false, checkLeftOnly = false;
         for (int i = 0; i < left.size() + right.size(); i++) {
-            if (leftIndex == left.size()){
+            if (leftIndex == left.size()) {
                 checkRightOnly = true;
             } else if (rightIndex == right.size()) {
                 checkLeftOnly = true;
             }
-            if (!checkLeftOnly && !checkRightOnly && left.get(leftIndex) < right.get(rightIndex)){
+            if (!checkLeftOnly && !checkRightOnly && left.get(leftIndex) < right.get(rightIndex)) {
                 sortedSeries.add(i, left.get(leftIndex));
                 leftIndex++;
-            } else if (!checkLeftOnly){
+            } else if (!checkLeftOnly) {
                 sortedSeries.add(i, right.get(rightIndex));
                 rightIndex++;
             } else {
@@ -153,14 +152,12 @@ public class AllSortsOfSorts {
         Integer pivot = unsortedSeries.get((start + end) / 2);   //Not the best method since pivot is too deterministic.
 
         /** partition **/
-        while (i <= j)
-        {
+        while (i <= j) {
             while (unsortedSeries.get(i) < pivot)
                 i++;
             while (unsortedSeries.get(j) > pivot)
                 j--;
-            if (i <= j)
-            {
+            if (i <= j) {
                 /** swap **/
                 temp = unsortedSeries.get(i);
                 unsortedSeries.set(i, unsortedSeries.get(j));
